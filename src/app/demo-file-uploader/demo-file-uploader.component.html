@@ -1,0 +1,27 @@
+<style>
+.imgFile {
+    width: 180px;
+    height: 150px;
+    object-fit: contain;
+}
+.uploadBtn {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+    margin: 20px 0px;
+}
+.uploadBtn:enabled {
+    background: #4CAF50;
+}
+.uploadBtn:disabled {
+    background: #dddddd;
+}
+</style>
+
+<div style="text-align: center">
+    <div> <img [src]="url" class="imgFile"/>
+        <input type="file" (change)="onFileSelected($event)" accept="image/*"></div>
+    <button  color="accent" class="uploadBtn" (click)="uploadImage()" [disabled]="!selectedFile">Upload Image</button>
+</div>

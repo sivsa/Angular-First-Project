@@ -1,0 +1,94 @@
+<div class="container">
+<h2>Login - Template Driven Form</h2>
+<small>Model class detail : {{ myUserDetails | json}}</small>
+    <!-- #FormTemplateName= "ngForm" - > this "ngForm" will create the form in angular and it's mandatory -->
+    <!-- #autocomplete="off" > off the auto-suggestion from chrom input field -->
+    <!-- (ngSubmit) > For writing the click function in button, this will take care while clicking the login button inside the form -->
+    <form #userDetailsForm="ngForm" autocomplete="off" *ngIf="!formSubmitted" (ngSubmit)="sumbitFunc(userDetailsForm.value)">
+        
+        <small><i>Form Details : </i>{{ userDetailsForm.value | json}}</small>
+        <h4><i>Form All validation : </i>{{ userDetailsForm.form.valid }}</h4>
+
+        <!-- form-group - will group the data -->
+        <div class="form-group">
+            <label for="firstname">Name:</label>
+            <!-- form-control - will control the data -->
+            <!-- name and [(ngModel)] attr is must for Template Driven Form -->
+            <!-- name - Values will save in the name attr and it will present as JSON object in form -->
+            <!-- [(ngModel)] - Values will bind the data in the input element -->
+            <!-- #myReferName="ngModel" > will access the ngModel Properties and it's mandatory -->
+            <!-- is-invalid - is the default class to show the error border -->
+            <!-- is-invalid - will apply only the input field as not empty and user touched the input filed,
+                because while loading we can't show the red border If user name is empty -->
+            <input type="text" class="form-control" id="firstname" name="userName" [(ngModel)]="myUserDetails.firstName"
+             #myReferName="ngModel" required [class.is-invalid]="myReferName.touched && myReferName.invalid" >
+            <!-- d-none > bootstarp display none -->
+            <small class="text-danger" [class.d-none]="myReferName.valid || myReferName.untouched">Name is required</small>
+
+        
+            <!-- Track Control State and validity will return the "boolean" -->
+            <!-- ng-untouched(Default) and ng-touched(User touched the input) -->
+            <!-- ng-pristine(Default, Data not changed) and ng-dirty(Data modified) -->
+            <!-- ng-valid(check the validation as true and required field is mandatory for this) and ng-invalid(validation fails) -->
+            <!-- myReferName.className > will print the Track Control State class name -->
+            <!-- <h5>Reference value ngModel Class {{myReferName.className}}</h5> -->
+            <h5>Reference value ngModel Property, Example : touched as : {{myReferName.touched}}</h5>
+            <h5>Reference value ngModel Property, Example : dirty as : {{myReferName.dirty}}</h5>
+            <h5>Reference value ngModel Property, Example : invalid as : {{myReferName.invalid}}</h5>
+        </div>
+
+        <div class="form-group">
+            <label for="mobile">Mobile Number:</label>
+            <input type="number" class="form-control" id="mobile" name="userMobile" [(ngModel)]="myUserDetails.mobileNumber"
+             #myReferMobile="ngModel" required pattern="^\d{10}$"
+             [class.is-invalid]="myReferMobile.touched && myReferMobile.invalid">
+             <!-- myReferMobile.errors > will give the required and pattern attr boolean -->
+             <div *ngIf="myReferMobile.errors && (myReferMobile.touched && myReferMobile.invalid)">
+                 <small class="text-danger" *ngIf="myReferMobile.errors.required">Phone Number is required</small>
+                 <small class="text-danger" *ngIf="myReferMobile.errors.pattern">Please enter 10 digit Phone Number</small>
+            </div>
+
+             <h5>Reference value ngModel Property, Example : touched as : {{myReferMobile.touched}}</h5>
+             <h5>Reference value ngModel Property, Example : dirty as : {{myReferMobile.dirty}}</h5>
+             <h5>Reference value ngModel Property, Example : invalid as : {{myReferMobile.invalid}}</h5>
+        </div>
+
+        <div class="form-group">
+            <label for="course">Choose a course:</label>
+            <select name="course" id="course" class="form-control" name="userCourse" [(ngModel)]="myUserDetails.selectedCourse"
+            #myReferCourse="ngModel" required (change)="selectedCourseValue(myReferCourse.value)" (blur)="selectedCourseValue(myReferCourse.value)"
+             [class.is-invalid]="myReferCourse.touched && myReferCourse.invalid">
+                <option value="">Select Course</option>
+                <option *ngFor="let cou of courses" [value]="cou">{{cou}}</option>
+            </select>
+            <small class="text-danger" *ngIf="myReferCourse.touched && !courseValue">Please select the course</small>
+        </div>
+        
+        <div class="form-group">
+            <label for="course">Please select your gender:</label>
+            <br>
+            <input type="radio" id="male" value="male" name="userGender" required [(ngModel)]="myUserDetails.gender" #myReferGender="ngModel" (change)="genderValueFunc(myReferGender.value)">
+            <label for="male">Male</label><br>
+            <input type="radio" id="female" value="female" name="userGender" required [(ngModel)]="myUserDetails.gender" #myReferGender="ngModel" (change)="genderValueFunc(myReferGender.value)">
+            <label for="female">Female</label><br>
+            <input type="radio" id="other" value="other" name="userGender" required [(ngModel)]="myUserDetails.gender" #myReferGender="ngModel" (change)="genderValueFunc(myReferGender.value)">
+            <label for="other">Other</label>
+            <br>
+            <small class="text-danger" *ngIf="myReferGender.touched && !genderValue">Please select the gender</small>
+        </div>
+
+        <div class="form-group">
+            <input type="checkbox" id="subscribe" value="Bike" required name="userSubscribe" [(ngModel)]="myUserDetails.isSubcribe"  #myReferSubscribe="ngModel" (change)="subscribeValueFunc(myReferSubscribe.value)">
+            <label for="subscribe">Subscribe</label><br>
+            <small class="text-danger" *ngIf="myReferSubscribe.touched && !subscribeValue">Please Subscribe</small>
+        </div>
+        <!-- userDetailsForm.form.valid > button should be inside form for hide and show the button -->
+        <button mat-flat-button color="accent" class="login_css" 
+        [disabled]="!userDetailsForm.form.valid">Login</button>
+        <button mat-flat-button color="warn" class="register_css" routerLink="/register">Register</button>
+    </form>
+
+    <button mat-flat-button color="primary" class="load_css" (click)="loadData()" *ngIf="!formSubmitted">Load the data</button>
+
+    <h1 *ngIf="formSubmitted" style="text-align: center; color: green;">Data submitted sucessfully...</h1>
+</div>

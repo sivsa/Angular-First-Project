@@ -1,0 +1,7 @@
+<!-- Child Component -->
+<h1>Child Component</h1>
+<label>Child Age: 
+    <input #childDataID type="number" value="27" placeholder="Age">
+</label>
+<button (click)="onFire(childDataID.value)">Click to send the Age Data from Parent to Child</button>
+<h1>Name as {{paramsParentData}}</h1>

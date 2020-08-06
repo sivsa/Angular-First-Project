@@ -1,0 +1,82 @@
+<div class="container">
+    <h2>Register - Reactive Form</h2>
+        <!-- import the "ReactiveFormsModule" in app module -->
+        <!-- [formGroup]="FormGroup object name" - create the form group object in ts file  -->
+        <form [formGroup]="registerFormGroup" (ngSubmit)="sumbitFunc(registerFormGroup.value)" *ngIf="!formSubmitted">
+            
+            <!-- print the form value json object -->
+            <small><i>Form Details : </i>{{ registerFormGroup.value | json}}</small>    
+            
+            <!-- form-group - will group the data -->
+            <!-- No required in Reactive Form like > [(ngModel)]="" #myRefer="ngModel" -->
+            <div class="form-group">
+                <label for="firstname">Name:</label>
+                <!-- formControlName="formControl object name" -->
+                <!-- commonUserNameFormControl will assign as - this.registerFormGroup.get('userNameFormControl') -->
+                <input type="text" class="form-control" formControlName="userNameFormControl"
+                [class.is-invalid]=" commonUserNameFormControl.touched && commonUserNameFormControl.invalid" >
+                
+                <div *ngIf="commonUserNameFormControl.errors && ( commonUserNameFormControl.touched &&  commonUserNameFormControl.invalid)">
+                    <small class="text-danger" *ngIf=" commonUserNameFormControl.errors.required">Name is required</small>
+                    <small class="text-danger" *ngIf=" commonUserNameFormControl.errors.minlength">Name should be atleast 3 letters</small>
+               </div>
+
+                <!-- Track Control State and validity will return the "boolean" -->
+                <!-- ng-untouched(Default) and ng-touched(User touched the input) -->
+                <!-- ng-pristine(Default, Data not changed) and ng-dirty(Data modified) -->
+                <!-- ng-valid(check the validation as true and required field is mandatory for this) and ng-invalid(validation fails) -->
+                <h5>Reference value input Property, Example : touched as : {{commonUserNameFormControl.touched}}</h5>
+                <h5>Reference value input Property, Example : dirty as : {{commonUserNameFormControl.dirty}}</h5>
+                <h5>Reference value input Property, Example : invalid as : {{commonUserNameFormControl.invalid}}</h5>
+            </div>
+    
+            <div class="form-group">
+                <label for="mobile">Mobile Number:</label>
+                <input type="number" class="form-control" formControlName="mobileNumberFormControl" required pattern="^\d{10}$"
+                [class.is-invalid]="commonMobileNumberFormControl.touched && commonMobileNumberFormControl.invalid">
+                 <!-- commonMobileNumberFormControl.errors > will give the required and pattern attr boolean -->
+                 <div *ngIf="commonMobileNumberFormControl.errors && (commonMobileNumberFormControl.touched && commonMobileNumberFormControl.invalid)">
+                     <small class="text-danger" *ngIf="commonMobileNumberFormControl.errors.required">Phone Number is required</small>
+                     <small class="text-danger" *ngIf="commonMobileNumberFormControl.errors.pattern">Please enter 10 digit Phone Number</small>
+                </div>
+    
+                <h5>Reference value ngModel Property, Example : touched as : {{commonMobileNumberFormControl.touched}}</h5>
+                <h5>Reference value ngModel Property, Example : dirty as : {{commonMobileNumberFormControl.dirty}}</h5>
+                <h5>Reference value ngModel Property, Example : invalid as : {{commonMobileNumberFormControl.invalid}}</h5>
+            </div>
+    
+            <div class="form-group">
+                <label for="course">Choose a course:</label>
+                <select id="course" class="form-control" formControlName="courseFormControl" required (change)="selectedCourseValue(registerFormGroup.get('courseFormControl').value)" (blur)="selectedCourseValue(registerFormGroup.get('courseFormControl').value)">
+                    <option value="">Select Course</option>
+                    <option *ngFor="let cou of courses" [value]="cou">{{cou}}</option>
+                </select>
+                <small class="text-danger" *ngIf="registerFormGroup.get('courseFormControl').touched && !courseValue">Please select the course</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="course">Please select your gender:</label>
+                <br>
+                <input type="radio" id="male" value="male" required formControlName="genderFormControl" (change)="genderValueFunc(registerFormGroup.get('genderFormControl').value)">
+                <label for="male">Male</label><br>
+                <input type="radio" id="female" value="female" required formControlName="genderFormControl" (change)="genderValueFunc(registerFormGroup.get('genderFormControl').value)">
+                <label for="female">Female</label><br>
+                <input type="radio" id="other" value="other" required formControlName="genderFormControl" (change)="genderValueFunc(registerFormGroup.get('genderFormControl').value)">
+                <label for="other">Other</label>
+                <br>
+                <small class="text-danger" *ngIf="registerFormGroup.get('genderFormControl').touched && !genderValue">Please select the gender</small>
+            </div>
+    
+            <div class="form-group">
+                <input type="checkbox" id="subscribe" required  formControlName="subscribeFormControl" (change)="subscribeValueFunc(registerFormGroup.get('subscribeFormControl').value)"> 
+                <label for="subscribe">Subscribe</label><br>
+                <small class="text-danger" *ngIf="registerFormGroup.get('subscribeFormControl').touched && !subscribeValue">Please Subscribe</small>
+            </div>
+            <!-- userDetailsForm.form.valid > button should be inside form for hide and show the button -->
+            <button mat-flat-button color="accent" class="login_css" >Register</button>
+        </form>
+    
+        <button mat-flat-button color="primary" class="load_css" (click)="loadData()" *ngIf="!formSubmitted">Load the data</button>
+
+        <h1 *ngIf="formSubmitted" style="text-align: center; color: green;">Data submitted sucessfully...</h1>
+    </div> 

@@ -1,0 +1,12 @@
+<p>Your selected Department ID : {{myID}}</p>
+
+<button (click)="overview()">Overview</button>
+<button (click)="contact()">Contact</button>
+
+<div style="margin: 3%;">
+ <router-outlet></router-outlet>
+</div>
+
+<button (click)="back()">Back</button>
+<button (click)="previous()">Previous</button>
+<button (click)="next()">Next</button>

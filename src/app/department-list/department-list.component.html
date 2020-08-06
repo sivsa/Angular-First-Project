@@ -1,0 +1,5 @@
+<!-- Routing -->
+<h1 style="text-align: center;">Department List</h1>
+<div class="cursor-pointer" *ngFor="let names of listOfLocalNames">
+    <p [class.selected-div]="isSelectedEmployeeCheck(names)" (click)=employeeInfo(names)>{{names.id}} - {{names.name}}</p>
+</div>

@@ -1,0 +1,11 @@
+<!-- Parent Component -->
+<h1>Parent Component</h1>
+<label>Parent Name: 
+    <input #parentDataID type="text" value="Sivasankar" placeholder="Name">
+</label>
+<button (click)="onFire(parentDataID.value)">Click to send the Name Data from Parent to Child</button>
+<h1 *ngIf="fromChildData">Age as {{fromChildData}}</h1>
+<app-demo-parent-child *ngIf="fromParentData" 
+    [paramsParentData]="fromParentData" 
+    (myEmitter)="fromChildData = $event"
+></app-demo-parent-child>

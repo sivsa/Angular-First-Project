@@ -1,0 +1,27 @@
+.main_div {
+   width: 100%;
+   display: inline-block;
+   background-color: orange;
+   position: relative;
+   padding: 1%;
+ }
+ .sub_div {
+   position: absolute;
+   height: 100%;
+   left: 34%;
+ }
+ .sub_img {
+   cursor: pointer;
+   float: left;
+   position: absolute;
+   left: 1%;
+   top: 30%;
+ }
+ .my_button {
+   cursor: pointer;
+   float: right;
+   position: relative;
+   right: 1%;
+   background: #222;
+   border: 1px #222 solid;
+ }

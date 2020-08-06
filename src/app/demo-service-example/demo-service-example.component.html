@@ -1,0 +1,20 @@
+<!-- Service -->
+<h1 style="text-align: center;">Service</h1>
+<h1>Service From Mock Data</h1>
+<div *ngFor="let names of listOfLocalNames; index as i">
+    <p>Id - {{names.id}} and Name - {{names.name}}</p>
+</div>
+
+<h1>Service From Services - HttpClientModule</h1>
+<div *ngIf="isSuccess; then ifBlock else elseBlock"></div>
+
+<ng-template #ifBlock>
+    <div *ngFor="let names of listOfServiceNames">
+        <p>Id - {{names.id}} and Name - {{names.email}}</p>
+        <img src="{{names.avatar}}">
+    </div>    
+</ng-template>
+
+<ng-template #elseBlock>
+    <h4 style="text-align: center;">Service Error</h4>
+</ng-template>

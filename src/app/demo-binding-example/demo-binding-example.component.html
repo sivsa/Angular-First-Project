@@ -1,0 +1,67 @@
+<!-- Interpolation -->
+<h1>Interpolation</h1>
+<p>{{"Welcome Mr." + (firstName | uppercase)}}</p>
+<p>titlecase : {{message | titlecase}}</p>
+<p>Length : {{firstName.length}}</p>
+<p>toLowerCase() : {{firstName.toLowerCase()}}</p>
+<p>Number Add : {{age+9}}</p>
+
+
+<!-- Property Binding as [] --> 
+<!-- id, class, disabled, etc... All attributes are Property... [PropertyAttributes or customNames] -->
+<h1>Property Binding</h1>
+<label>First Name: 
+    <input id="{{myId}}" [class]="myId" type="text" value="Usharani" placeholder="Mother Name">
+</label>
+<!-- bind-disabled or [disabled] -->
+<label>Last name: 
+    <input type="text" value="Palpandian" placeholder="Mother Name" [disabled]="isInputDisabledTrue">
+</label>
+
+
+<!-- Event Binding as () -->
+<!-- $event -> pass the event functions -->
+<h1>Event Binding</h1>
+<button id="myID" (click)="onFire($event)">SAVE</button>
+
+
+<!-- Class Binding [class] or [ngClass] -->
+<!-- Modified the DOM appreance based on condtion -->
+<h1>Class Binding</h1>
+<h4 [class]="classBindingGreen">{{firstName}}</h4>
+<!-- First normal class style will apply, then the [class] style will apply and override it, both style will apply-->
+<h4 class="text-success" [class]="classBindingCombined">{{firstName}}</h4>
+<!-- based on the condition we need to add the class css -->
+<h4 [class.text-success]="hasGreen" [class.text-danger]="hasRed" [class.text-special]="hasSpecial">{{firstName}}</h4>
+<!-- Alternative method, ngClass - add the multiple class style in object -->
+<h4 [ngClass]="colorNgClass">ngClass : {{firstName}}</h4>
+
+
+<!-- Style Binding [style] or [ngStyle] -->
+<!-- Apply the inLine style based on condtion -->
+<h1>Style Binding</h1>
+<!-- [style.property] add the purple color as a inline style using "'color'" -->
+<h4 [style.color]="'purple'">{{message | uppercase}}</h4>
+<h4 [style.color]="colorPurple">{{message | lowercase}}</h4>
+<!-- condtion -->
+<h4 [style.color]="!hasRed ? 'red' : 'green' ">{{"Based on the condtion it will switch the color" | titlecase}}</h4>
+<!-- ngStyle with add multiple style in Inline -->
+<h4 [ngStyle]="multipleStyle">{{"Based on the condtion it will switch the color" | titlecase}}</h4>
+
+
+<!-- Template Reference Variables using #ID -->
+<h1>Template Reference Variables</h1>
+<input #myInputId type="text" value="San Here!!!" placeholder="Name">
+<button class="text-success text-special" (click)="onGetInputVar(myInputId.value)">Get the value from the Input using ID</button>
+
+<!-- Two-way Binding -->
+<!-- data flow from view to model and model to view -->
+<!-- [(ngModel)] - Need to add FormsModule in app.module.ts - import { FormsModule } from '@angular/forms'-->
+<h1>Two-way Binding</h1>
+<label>One-way Binding : 
+    <input type="text" value="{{twoWayText}}" placeholder="One-way Binding">
+</label>
+<label>Two-way Binding : 
+    <input type="text" [(ngModel)]="twoWayText" placeholder="Two-way Binding">
+</label>
+{{twoWayText}}

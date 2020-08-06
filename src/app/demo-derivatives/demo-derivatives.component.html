@@ -1,0 +1,31 @@
+<!-- Directives -->
+<h1 style="text-align: center;">Directives</h1>
+
+<!-- *ngIf -->
+<h2 *ngIf="checkMaleGender">This content as a ngIf condition as true</h2>
+
+<!-- *ngIf condtion - then ifID - else elseID -->
+<div *ngIf="displayIfExample; then ifBlockID; else elseBlockID"></div>
+
+<!-- ng-template -->
+<ng-template #ifBlockID>
+    <h4>It will display IF condtion as true</h4>
+</ng-template>
+
+<ng-template #elseBlockID>
+    <h4>It will display ELSE condtion as false</h4>
+</ng-template>
+
+<!-- *ngFor - let fruit of fruits -->
+<!-- Index, First, Last, odd and even are exported by *ngFor directive -->
+<div *ngFor="let namesofarray of listOfNames; index as i; first as f; last as l; odd as o; even as e">
+    <p>{{ (i+1) +" , " +namesofarray}}</p>
+    <b>index - {{i}} || first - {{f}} || last - {{l}} || odd - {{o}} || even - {{e}}</b>
+</div>
+
+<!-- [ngSwitch] - *ngSwitchCase -->
+<div [ngSwitch] = "colorName">
+    <h2 *ngSwitchCase="'red'">This is red color</h2>
+    <h2 *ngSwitchCase="'blue'">This is blue color</h2>
+    <h2 *ngSwitchCase="'orange'">This is orange color</h2>
+</div>
